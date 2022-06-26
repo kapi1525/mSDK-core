@@ -21,9 +21,8 @@ if build_machine.cpu() != 'x86'
 endif
 
 
-
 # Compiler arguments for each target
-edititme_args = ['-DHWABETA']                 # TODO: Add EDITTIME macro
+edititme_args = ['-DHWABETA']                   # TODO: Add EDITTIME macro
 runtime_args  = ['-DHWABETA', '-DRUN_ONLY']     # TODO: Repleace RUN_ONLY with RUNTIME
 unicode_args  = ['-DUNICODE', '-D_UNICODE']     # Both UNICODE and _UNICODE are required, first one is used by WinAPI and second is used by CRT (C Runtime Library)
 
