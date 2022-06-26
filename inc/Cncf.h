@@ -791,67 +791,6 @@ typedef	eventInfosOffsets *		LPEVO;
 #define		OBJ_FIRST_C_OBJECT		8
 #define		OBJ_LAST				NB_SYSOBJ
 
-#ifndef COXSDK
-
-// FAST LOOP ACCELERATION
-///////////////////////////////////////////////////////////////
-class CPosStartLoop
-{
-public:
-	CPosStartLoop(LPEVP pEvp, LPTSTR pName)
-	{ 
-		m_pEvp = pEvp;
-		m_name = (LPTSTR)malloc((_tcslen(pName) + 1) * sizeof(TCHAR));
-		_tcscpy(m_name, pName);
-	}
-	~CPosStartLoop()
-	{
-		free(m_name);
-	}
-	LPEVP m_pEvp;
-	LPTSTR m_name;
-};
-class CPosOnLoop
-{
-public:
-	enum
-	{
-		POL_STEP = 4
-	};
-	LPDWORD m_deltas;
-	int m_length;
-	int m_position;
-	LPTSTR m_name;
-	BOOL m_bOR;
-
-	CPosOnLoop(LPTSTR pName)
-	{
-		m_name = pName;
-		m_length = 1;
-		m_deltas = (LPDWORD)malloc( (m_length * 2 + 1 )* sizeof(DWORD));
-		m_position = 0;
-		m_bOR = FALSE;
-	}
-	~CPosOnLoop()
-	{
-		free(m_deltas);
-	}
-	void AddOnLoop(DWORD delta1, BOOL delta2)
-	{
-		if (m_position == m_length)
-		{
-			m_length += POL_STEP;
-			m_deltas = (LPDWORD)realloc(m_deltas, (m_length *2 + 1) * sizeof(DWORD));
-		}
-		m_deltas[m_position * 2] = delta1;
-		m_deltas[m_position * 2 + 1] = delta2;
-		m_position++;
-		m_deltas[m_position * 2] = 0xFFFFFFFF;
-	}
-};
-
-#endif
-
 
 // ------------------------------------------------------------
 // EXTENSION OBJECT DATA ZONE

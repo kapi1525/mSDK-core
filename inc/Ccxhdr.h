@@ -93,17 +93,11 @@
 #include	"WinMacro.h"
 #include	"Colors.h"
 
-#ifdef COXSDK
+
 #include	"cnpdll.h"
 #include	"cncr.h"
 #include	"evtccx.h"
 #include	"Props.h"
-#else
-#include	"..\..\dll\cnpdll.h"
-#include	"..\..\runtime\cncr.h"
-#include	"..\..\events\evtccx.h"
-#include	"..\inc\props.h"
-#endif
 
 // Other definitions
 #include	"ccx.h"
