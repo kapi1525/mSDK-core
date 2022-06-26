@@ -21,11 +21,15 @@ if build_machine.cpu() != 'x86'
 endif
 
 
-# Compiler arguments for each target
-edititme_args = ['-DHWABETA']                   # TODO: Add EDITTIME macro
-runtime_args  = ['-DHWABETA', '-DRUN_ONLY']     # TODO: Repleace RUN_ONLY with RUNTIME
-unicode_args  = ['-DUNICODE', '-D_UNICODE']     # Both UNICODE and _UNICODE are required, first one is used by WinAPI and second is used by CRT (C Runtime Library)
 
+# Compiler arguments for each target
+common   = ['-DHWABETA']
+edittime = ['-DEDITTIME']
+runtime  = ['-DRUN_ONLY', '-DRUNTIME']     # TODO: Remove RUN_ONLY
+unicode  = ['-DUNICODE', '-D_UNICODE']
+
+edittime_rc = ['/DEDITTIME']
+runtime_rc  = []
 
 
 mmfs2 = meson.get_compiler('cpp').find_library(
@@ -34,9 +38,12 @@ mmfs2 = meson.get_compiler('cpp').find_library(
   required: true
 )
 
-SDK = declare_dependency(
+
+mSDK_include = include_directories('inc')
+
+mSDK = declare_dependency(
   dependencies : mmfs2,
-  include_directories : include_directories('inc'),
+  include_directories : mSDK_include,
 )
 
-meson.override_dependency('SDK', SDK)
+meson.override_dependency('mSDK', mSDK)
