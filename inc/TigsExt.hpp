@@ -36,16 +36,16 @@ _inline bool IsInBounds(float,float,float);	// Float is between two numbers
 _inline int GetIntAltVal(LPRO,int);			// Get integer alterable value
 _inline float GetFloatAltVal(LPRO,int);		// Get float alterable value
 _inline int FixedVal(LPRO);					// Get fixed value of an object
-_inline float GetFloatParam(LPRDATA);		// Get float parameter
-_inline void SetReturnString(LPRDATA);		// Set expression to return string
-_inline void GenerateEvent(LPRDATA,int);	// Generate event
-_inline void PushEvent(LPRDATA,int);		// Push event
-_inline void DestroyObject(LPRDATA);		// Destroy the object
-_inline void ReHandleObject(LPRDATA);		// Start calling HandleRunObject again
-_inline char* GetStringSpace(LPRDATA,int);	// Get temporary string space from MMF
-_inline char* GetStringSpaceOld(LPRDATA,int);	// Get temporary string space from MMF (pre-MMF1.5)
-_inline int GetActionLoopCount(LPRDATA);	// Number of times action called by MMF for PARAM_OBJECT (starts at 0)
-_inline bool IsLastActionLoop(LPRDATA);		// Is last time action is being called by MMF for PARAM_OBJECT
+_inline float GetFloatParam(RUNDATA*);		// Get float parameter
+_inline void SetReturnString(RUNDATA*);		// Set expression to return string
+_inline void GenerateEvent(RUNDATA*,int);	// Generate event
+_inline void PushEvent(RUNDATA*,int);		// Push event
+_inline void DestroyObject(RUNDATA*);		// Destroy the object
+_inline void ReHandleObject(RUNDATA*);		// Start calling HandleRunObject again
+_inline char* GetStringSpace(RUNDATA*,int);	// Get temporary string space from MMF
+_inline char* GetStringSpaceOld(RUNDATA*,int);	// Get temporary string space from MMF (pre-MMF1.5)
+_inline int GetActionLoopCount(RUNDATA*);	// Number of times action called by MMF for PARAM_OBJECT (starts at 0)
+_inline bool IsLastActionLoop(RUNDATA*);		// Is last time action is being called by MMF for PARAM_OBJECT
 _inline long GetTimer();					// Timer count, 100 per second
 _inline char UpperChar(char);				// Convert a char to uppercase
 _inline char LowerChar(char);				// Convert a char to lowercase
@@ -53,7 +53,7 @@ _inline int GetDistance(int,int,int,int);	// Distance between two points
 _inline int GetAngle(int,int,int,int);		// Angle between two points
 _inline int RotateToward(int,int,int,int);	// Rotate towards direction/angle
 _inline int AngToDir(LONG);					// Convert angle to direction
-_inline LPRO LproFromFixed(LPRDATA rdPtr,long fixedvalue);
+_inline LPRO LproFromFixed(RUNDATA* rdPtr,long fixedvalue);
 
 _inline void DestroyObject(LPRO Object);
 _inline bool IsDestroyed(LPRO Object);
@@ -217,7 +217,7 @@ _inline int FixedVal(LPRO object)
 { return ((object->roHo.hoCreationId << 16) + object->roHo.hoNumber); }
 
 // LproFromFixed: Returns a pointer to RunObject structure from a fixed value
-_inline LPRO LproFromFixed(LPRDATA rdPtr,long fixedvalue)
+_inline LPRO LproFromFixed(RUNDATA* rdPtr,long fixedvalue)
 {
 	LPOBL objList = rdPtr->rHo.hoAdRunHeader->rhObjectList;
 	return (LPRO)(objList[0x0000FFFF & fixedvalue].oblOffset);
@@ -230,7 +230,7 @@ _inline LPRO LproFromFixed(LPRDATA rdPtr,long fixedvalue)
 ////////////////
 
 // Get float parameter for actions/conditions
-_inline float GetFloatParam(LPRDATA rdPtr)
+_inline float GetFloatParam(RUNDATA* rdPtr)
 {
 	long tmpf = CNC_GetFloatParameter(rdPtr);
 	float param = *(float*)&tmpf;
@@ -238,7 +238,7 @@ _inline float GetFloatParam(LPRDATA rdPtr)
 }
 
 // SetReturnString:  Tells MMF that the current expression is going to return a string
-_inline void SetReturnString(LPRDATA rdPtr)
+_inline void SetReturnString(RUNDATA* rdPtr)
 {	rdPtr->rHo.hoFlags |= HOF_STRING;	}
 
 
@@ -248,42 +248,42 @@ _inline void SetReturnString(LPRDATA rdPtr)
 ///////////////////////
 
 // GenerateEvent:  *instantly* generates an event
-_inline void GenerateEvent(LPRDATA rdPtr, int EventID)
+_inline void GenerateEvent(RUNDATA* rdPtr, int EventID)
 {	callRunTimeFunction(rdPtr,RFUNCTION_GENERATEEVENT,EventID,0); }
 
 // PushEvent:  same as GenerateEvent, but the event is only generated at the end of MMF's event loop
-_inline void PushEvent(LPRDATA rdPtr, int EventID)
+_inline void PushEvent(RUNDATA* rdPtr, int EventID)
 {	callRunTimeFunction(rdPtr,RFUNCTION_PUSHEVENT,EventID,0); }
 
 // DestroyObject:  destroys your object like the Destroy action (will call DestroyRunObject etc. etc.)
-_inline void DestroyObject(LPRDATA rdPtr)
+_inline void DestroyObject(RUNDATA* rdPtr)
 {	callRunTimeFunction(rdPtr,RFUNCTION_DESTROY,0,0);	}
 
 // ReHandleObject:  start calling HandleRunObject() again
-_inline void ReHandleObject(LPRDATA rdPtr)
+_inline void ReHandleObject(RUNDATA* rdPtr)
 {	callRunTimeFunction(rdPtr,RFUNCTION_REHANDLE,0,0);	}
 
 // GetStringSpace:  gets some string space for an expression to return a string with.
 // returns a pointer to your new memory.  MMF will automatically free this memory soon after your expression routine finishes
 // NO LIMIT - BUILD 108 and up
-_inline char* GetStringSpace(LPRDATA rdPtr, int size)
+_inline char* GetStringSpace(RUNDATA* rdPtr, int size)
 {	return (char *)callRunTimeFunction(rdPtr,RFUNCTION_GETSTRINGSPACE_EX,0,size); }
 
 // GetStringSpaceOld:  gets some string space for an expression to return a string with.
 // returns a pointer to your new memory.  MMF will automatically free this memory soon after your expression routine finishes
 // LIMITED TO 32KB - but compatible with all builds
-_inline char* GetStringSpaceOld(LPRDATA rdPtr, int size)
+_inline char* GetStringSpaceOld(RUNDATA* rdPtr, int size)
 {	return (char *)callRunTimeFunction(rdPtr,RFUNCTION_GETSTRINGSPACE,size,0); }
 
 // GetActionLoopCount(rdPtr): if you use PARAM_OBJECT as your first parameter, MMF will repeat your action
 // for every one of those objects that met the event.  This will return the index of the action repetition
 // e.g. 0 is the first run of the action, 1 is the next, etc.
-_inline int GetActionLoopCount(LPRDATA rdPtr)
+_inline int GetActionLoopCount(RUNDATA* rdPtr)
 {	return rdPtr->rHo.hoAdRunHeader->rh2.rh2ActionLoopCount; }
 
 // IsLastActionLoop:  As above, when MMF is looping your action for objects, this will return
 // TRUE the LAST time MMF is running the action for you.
-_inline bool IsLastActionLoop(LPRDATA rdPtr)
+_inline bool IsLastActionLoop(RUNDATA* rdPtr)
 {
 	if (rdPtr->rHo.hoAdRunHeader->rh2.rh2ActionLoop == 0)
 		return TRUE;
