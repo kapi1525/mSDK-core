@@ -89,7 +89,6 @@
 #define	RUN_TIME
 
 // Runtime include files
-#include	"ptype.h"
 #include	"WinMacro.h"
 #include	"Colors.h"
 
