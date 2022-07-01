@@ -2,7 +2,7 @@
 #ifndef _CNCF_H_
 #define _CNCF_H_
 
-#include "cncy.h"
+#include "Cncy.h"
 #ifdef STAND_ALONE
 #include "CValue.h"
 #else
@@ -4013,7 +4013,7 @@ typedef	ForEach*	LPFOREACH;
 //#undef CValue
 #undef CRunApp
 #undef CRunFrame
-#endif;
+#endif
 
 // Restores structure alignment...
 #ifndef      _H2INC 

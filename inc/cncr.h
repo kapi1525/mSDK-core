@@ -2,8 +2,8 @@
 #ifndef _cncinc_h
 #define _cncinc_h
 
-#include "cncy.h"
-#include "cncf.h"
+#include "Cncy.h"
+#include "Cncf.h"
 
 #ifdef __cplusplus
 class cSurface;

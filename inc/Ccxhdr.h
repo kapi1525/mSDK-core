@@ -90,15 +90,15 @@
 
 // Runtime include files
 #include	"WinMacro.h"
-#include	"Colors.h"
+#include	"colors.h"
 
 
-#include	"cnpdll.h"
+#include	"Cnpdll.h"
 #include	"cncr.h"
-#include	"evtccx.h"
+#include	"EVTCCX.h"
 #include	"Props.h"
 
 // Other definitions
-#include	"ccx.h"
+#include	"Ccx.h"
 
 #endif // ndef ccxhdr_h
