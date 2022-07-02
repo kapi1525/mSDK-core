@@ -28,9 +28,6 @@ edittime = ['-DEDITTIME']
 runtime  = ['-DRUNTIME']
 unicode  = ['-DUNICODE', '-D_UNICODE']
 
-edittime_rc = ['/DEDITTIME']
-runtime_rc  = []
-
 
 mmfs2 = meson.get_compiler('cpp').find_library(
   'mmfs2',
