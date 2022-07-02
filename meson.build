@@ -25,7 +25,7 @@ endif
 # Compiler arguments for each target
 common   = ['-DHWABETA']
 edittime = ['-DEDITTIME']
-runtime  = ['-DRUN_ONLY', '-DRUNTIME']     # TODO: Remove RUN_ONLY
+runtime  = ['-DRUNTIME']
 unicode  = ['-DUNICODE', '-D_UNICODE']
 
 edittime_rc = ['/DEDITTIME']
