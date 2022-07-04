@@ -18,11 +18,6 @@
 #include <cctype>
 
 
-// For runtime include files
-#define	IN_KPX
-#define	RUN_TIME
-
-
 // Other includes
 #include "WinMacro.h"
 #include "colors.h"

@@ -853,10 +853,8 @@ DLLExport32 void	WINAPI WinRect			(npWin, RECT   *);
 DLLExport32 void	WINAPI WinLine			(npWin, POINT   *, UINT);
 DLLExport32 void	WINAPI WinGrabDesktop	(npWin);
 
-#ifndef IN_KPX
-DLLExport32 int		WINAPI StartFullScreen	(npWin, int, int, int);
-DLLExport32 int		WINAPI EndFullScreen	();
-#endif // IN_KPX
+// DLLExport32 int		WINAPI StartFullScreen	(npWin, int, int, int);
+// DLLExport32 int		WINAPI EndFullScreen	();
 
 DLLExport32 void	WINAPI WinPaper			(npWin, COLORREF);
 DLLExport32 void	WINAPI WinPen			(npWin, COLORREF, int, int);

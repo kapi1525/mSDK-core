@@ -983,7 +983,6 @@ typedef Transition_Data * LPTRANSITIONDATA;
 //	Run-time Definitions
 //
 
-#ifdef	RUN_TIME
 
 #ifndef _H2INC
 typedef short *				LPSHORT;
@@ -1016,7 +1015,7 @@ typedef LPVOID *			LPLPVOID;
 // Control IDs
 #define		ID_EDIT_WIN		300				// ID of edit window
 
-#endif	// RUN_TIME
+
 
 // No longer used
 #ifndef		HFRAN
@@ -1040,7 +1039,7 @@ enum	{
 	MAX_TABREF
 };
 
-#ifdef RUN_TIME
+
 
 // Preferences
 #define	PREF_MUSICON		0x4000
@@ -1065,7 +1064,7 @@ enum	{
 };
 #define	NB_HTPTYPE	4
 
-#endif	// RUN_TIME
+
 
 // Versions
 #define MMFVERSION_MASK		0xFFFF0000
@@ -1630,7 +1629,7 @@ enum {
 // Options for OpenHFile
 #define	OHFF_LOCALFILE		0x0001		// Vitalize mode only: don't try to download file from server
 
-#ifdef RUN_TIME
+
 
 // EnumEltProc definition
 typedef	int (CALLBACK* ENUMELTPROC)(LPWORD, int, LPARAM, LPARAM);
@@ -1680,7 +1679,7 @@ typedef	struct	MvxFnc {
 #define	SUBPTR32(p,l)	p-=l;
 #define	INCPTR32(p)		p++;
 
-#endif	// RUN_TIME
+
 
 // Restore structure alignement
 #ifndef      _H2INC 

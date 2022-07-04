@@ -112,7 +112,7 @@ typedef OI *LPOI;
 typedef	OI* fpObjInfo;
 
 // Runtime only
-#ifdef RUN_TIME
+
 
 ///////////////////////////////////////////////
 //
@@ -618,7 +618,7 @@ typedef struct CRunApp {
 #endif
 typedef CRunApp*	fpRunApp;
 
-#endif // RUN_TIME
+
 
 #ifndef __cplusplus
 #undef cSurface
