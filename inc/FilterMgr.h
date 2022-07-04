@@ -3,11 +3,7 @@
 #define _FilterMgr_h
 
 #include "StdDefs.h"
-#if !defined(STDDLL_IMPORTS)
-	#include "FilterInfo.h"
-#else
-	typedef	LPVOID LPFILTERINFOARRAY;
-#endif
+typedef	LPVOID LPFILTERINFOARRAY;
 
 // Forwards
 class CInputFile;

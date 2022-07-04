@@ -1,104 +1,35 @@
+#pragma once
 
-// Definitions and compilation options for Release_Small,
-// Run_Only_Small and Vitalize_Small configurations
-//
-// z33z modifications
-#ifdef COMPILE_SMALL
-#ifndef DEBUG
 
-#ifdef _OPT_MAX_					// Not set by default: optimisation options should be defined in the project settings
-#pragma optimize("gsy",on)
-#endif // _OPT_MAX_
+// Windows
+#include <windows.h>
+#include <mmsystem.h>
+#include <io.h>
+#include <tchar.h>
 
-#pragma comment(linker,"/RELEASE")
+// Standard C
+#include <cstdlib>
+#include <cstddef>
+#include <cstdio>
+#include <cstring>
+#include <cassert>
+#include <cmath>
+#include <climits>
+#include <cctype>
 
-#if _MSC_VER >= 1000				// Slightly slower loading time under Windows 9x, but may save some Kb
-#pragma comment(linker,"/opt:nowin98")
-#endif // _MSC_VER >= 1000
-
-#endif // !DEBUG
-#endif // COMPILE_SMALL
-
-// end of z33z stuff
-
-// MAIN INCLUDES
-// =============
-#ifndef ccxhdr_h
-#define ccxhdr_h
-
-	// C
-#include	<windows.h>
-#include	<mmsystem.h>
-#include	<stdio.h>
-#ifdef _WIN32
-#include	<io.h>
-#else
-#include	<dos.h>
-#endif
-#include	<string.h>
-#include	<stdlib.h>
-#include	<stddef.h>
-#include	<ctype.h>
-#include	<tchar.h>
-#include	<math.h>
-#include	<limits.h>
-#ifndef _LINUX
-#include	<crtdbg.h>
-#else
-#include	<assert.h>
-#endif
-
-#if !defined(ASSERT)
-	#ifdef _DEBUG
-		#define	_ASSERTON
-	#endif
-
-	#if defined(_ASSERTON)
-		#define DEBUG_NEW	new
-	#endif
-
-	#if defined(_ASSERTON) && !defined(_68K_)
-		#define DEBUG_NEW	new
-
-		#ifdef _WIN32
-				#define	ASSERT(exp)	\
-					do { if (!(exp) && \
-							(1 == _CrtDbgReport(_CRT_ASSERT, THIS_FILE, __LINE__, NULL, NULL))) \
-						_CrtDbgBreak(); } while (0)
-		#else
-			#define	ASSERT(exp)	\
-						if (exp)	\
-							NULL;	\
-						else		\
-							_assert("", THIS_FILE, __LINE__)
-		#endif
-	#else
-		#define ASSERT(exp)
-	#endif
-#endif
-
-// For DLL include files
-#define STDDLL_IMPORTS
-#define IMGFLTMGR_IMPORTS
-#define SNDMGR_IMPORTS
-#define SURFACES_IMPORTS
-#define ZCOMPDLL_IMPORTS
 
 // For runtime include files
 #define	IN_KPX
 #define	RUN_TIME
 
-// Runtime include files
-#include	"WinMacro.h"
-#include	"colors.h"
 
+// Other includes
+#include "WinMacro.h"
+#include "colors.h"
+#include "Cnpdll.h"
+#include "cncr.h"
+#include "EVTCCX.h"
+#include "Props.h"
 
-#include	"Cnpdll.h"
-#include	"cncr.h"
-#include	"EVTCCX.h"
-#include	"Props.h"
-
-// Other definitions
-#include	"Ccx.h"
-
-#endif // ndef ccxhdr_h
+// Usefull defines
+#include "Ccx.h"
