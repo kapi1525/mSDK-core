@@ -24,8 +24,8 @@ endif
 
 # Compiler arguments for each target
 common   = ['-DHWABETA']
-edittime = ['-DEDITTIME']
-runtime  = ['-DRUNTIME']
+edittime = common + ['-DEDITTIME']
+runtime  = common + ['-DRUNTIME']
 unicode  = ['-DUNICODE', '-D_UNICODE']
 
 
