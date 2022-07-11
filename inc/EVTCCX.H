@@ -6,10 +6,10 @@ struct infosEventsV2 {
     short code;             // ACE ID
     short flags;            // Flags
     short nParams;          // Number of params
-    // TODO: Check if this actualy works V
-    // Note: Those are arrays not pointers!
-    short* param;           // Param types
-    short* paramTitle;      // Param titles displayed in Fusion
+    // TODO: Try to figure out a way of adding 0 size arrays to this structure without crashing Fusion sometimes
+    // Note: This dosent work V
+    // short* param;           // Param types
+    // short* paramTitle;      // Param titles displayed in Fusion
 };
 
 
