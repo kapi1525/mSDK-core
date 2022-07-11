@@ -2,6 +2,9 @@
 
 
 // Windows
+#define WIN32_LEAN_AND_MEAN     // Exclude some rarely used parts of winapi
+#define NOMINMAX                // Disable MIN MAX macros
+
 #include <windows.h>
 #include <mmsystem.h>
 #include <io.h>
