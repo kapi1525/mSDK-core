@@ -23,8 +23,6 @@
 #define TIGSEXT
 
 #include <time.h>
-// Common include
-// #include "Common.h"
 
 ////////////////
 // PROTOTYPES //
