@@ -6,8 +6,6 @@
 #define NOMINMAX                // Disable MIN MAX macros
 
 #include <windows.h>
-#include <mmsystem.h>
-#include <io.h>
 #include <tchar.h>
 
 // Standard C
