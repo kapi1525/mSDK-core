@@ -4,6 +4,8 @@
 // This file contains definitions and declarations of functions and classes used for file io
 // You should use these functions/clases over C++ and C standard library functions/clases
 
+#include "SlimWindows.hpp"
+
 
 
 namespace FileError {
