@@ -20,7 +20,6 @@
 
 
 // Other includes
-#include "WinMacro.h"
 #include "colors.h"
 #include "Cnpdll.h"
 #include "cncr.h"
