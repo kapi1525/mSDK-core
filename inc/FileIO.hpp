@@ -4,7 +4,7 @@
 // This file contains definitions and declarations of functions and classes used for file io
 // You should use these functions/clases over C++ and C standard library functions/clases
 
-#include "SlimWindows.hpp"
+#include "CommonSDK.hpp"
 
 
 
@@ -46,27 +46,27 @@ using FileHandle = HFILE;
 
 
 // File functions
-__declspec(dllimport) FileHandle __stdcall File_OpenA(const char* FileName, int Mode);
-__declspec(dllimport) FileHandle __stdcall File_CreateA(const char* FileName);
-__declspec(dllimport) BOOL __stdcall       File_ExistA(const char* FilePath);
-__declspec(dllimport) int __stdcall        File_Read(FileHandle File, void* Buffer, unsigned long Length);
-__declspec(dllimport) int __stdcall        File_ReadAndCount(FileHandle File, void* Buffer, unsigned long Length);
-__declspec(dllimport) int __stdcall        File_ReadShortIntelData(FileHandle File, void** BufferPointer);
-__declspec(dllimport) int __stdcall        File_ReadShortIntelString(FileHandle File, void** BufferPointer);
-__declspec(dllimport) int __stdcall        File_ReadLongIntelData(FileHandle File, void** BufferPointer);
-__declspec(dllimport) int __stdcall        File_Write(FileHandle File, void* Buffer, unsigned long Length);
-__declspec(dllimport) long __stdcall       File_GetPosition(FileHandle File);
-__declspec(dllimport) long __stdcall       File_SeekBegin(FileHandle File, long Position);
-__declspec(dllimport) long __stdcall       File_SeekCurrent(FileHandle File, long Position);
-__declspec(dllimport) long __stdcall       File_SeekEnd(FileHandle File, long Position);
-__declspec(dllimport) long __stdcall       File_GetLength(FileHandle File );
-__declspec(dllimport) void __stdcall       File_Close(FileHandle File);
+DllImport FileHandle FusionAPI File_OpenA(const char* FileName, int Mode);
+DllImport FileHandle FusionAPI File_CreateA(const char* FileName);
+DllImport BOOL       FusionAPI File_ExistA(const char* FilePath);
+DllImport int        FusionAPI File_Read(FileHandle File, void* Buffer, unsigned long Length);
+DllImport int        FusionAPI File_ReadAndCount(FileHandle File, void* Buffer, unsigned long Length);
+DllImport int        FusionAPI File_ReadShortIntelData(FileHandle File, void** BufferPointer);
+DllImport int        FusionAPI File_ReadShortIntelString(FileHandle File, void** BufferPointer);
+DllImport int        FusionAPI File_ReadLongIntelData(FileHandle File, void** BufferPointer);
+DllImport int        FusionAPI File_Write(FileHandle File, void* Buffer, unsigned long Length);
+DllImport long       FusionAPI File_GetPosition(FileHandle File);
+DllImport long       FusionAPI File_SeekBegin(FileHandle File, long Position);
+DllImport long       FusionAPI File_SeekCurrent(FileHandle File, long Position);
+DllImport long       FusionAPI File_SeekEnd(FileHandle File, long Position);
+DllImport long       FusionAPI File_GetLength(FileHandle File );
+DllImport void       FusionAPI File_Close(FileHandle File);
 
 // mmfs2.lib is old enough to use shorts instead of wchar_t, this causes link errors.
 // I hope theres newer lib... somewhere...
-__declspec(dllimport) FileHandle __stdcall File_OpenW(const unsigned short* fname, int mode);
-__declspec(dllimport) FileHandle __stdcall File_CreateW(const unsigned short* FileName);
-__declspec(dllimport) BOOL __stdcall       File_ExistW(const unsigned short* FilePath);
+DllImport FileHandle FusionAPI File_OpenW(const unsigned short* fname, int mode);
+DllImport FileHandle FusionAPI File_CreateW(const unsigned short* FileName);
+DllImport BOOL       FusionAPI File_ExistW(const unsigned short* FilePath);
 
 
 
