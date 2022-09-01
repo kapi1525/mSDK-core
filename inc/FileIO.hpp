@@ -8,24 +8,22 @@
 
 
 
-namespace FileError {
-    enum {
-        None = 0,
+enum class FileError {
+    None = 0,
 
-        OutOfMemory = 0x40000000,
-        ReadError,
-        EndOfFile,
-        WriteError,
-        DiskFull,
-        CannotOpenFile,
-        CannotCreateFile,
-        BufferTooSmall,
-        CannotSetFileSize,
-        Internal,
+    OutOfMemory = 0x40000000,
+    ReadError,
+    EndOfFile,
+    WriteError,
+    DiskFull,
+    CannotOpenFile,
+    CannotCreateFile,
+    BufferTooSmall,
+    CannotSetFileSize,
+    Internal,
 
-        Max = 0x40010000
-    };
-}
+    Max = 0x40010000
+};
 
 namespace FileMode {
     enum {
