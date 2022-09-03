@@ -6,10 +6,8 @@ struct infosEventsV2 {
     short code;             // ACE ID
     short flags;            // Flags
     short nParams;          // Number of params
-    // TODO: Try to figure out a way of adding 0 size arrays to this structure without crashing Fusion sometimes
-    // Note: This dosent work V
-    // short* param;           // Param types
-    // short* paramTitle;      // Param titles displayed in Fusion
+    short param[];          // Param types and starting from index nParams param titles displayed in Fusion
+    // short paramTitle[];  // Having multiple 0 length arrays in struct is illegal
 };
 
 
