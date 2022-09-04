@@ -20,7 +20,6 @@
 
 
 // Other includes
-#include "colors.h"
 #include "Cnpdll.h"
 #include "cncr.h"
 #include "EVTCCX.h"
