@@ -154,7 +154,7 @@ DllImport HPALETTE FusionAPI csPalette_GetPaletteHandle(csPalette* pCsPal);
 DllImport int FusionAPI csPalette_InitCache(csPalette* ptCsPal);
 
 // GetNearColorIndex with 16bit cache (warning: small loss of color possible)
-DllImport int FusionAPI csPalette_GetNearColorIndex_Fast (csPalette* ptCsPal, COLORREF color);
+DllImport int FusionAPI csPalette_GetNearColorIndex_Fast(csPalette* ptCsPal, COLORREF color);
 
 
 
