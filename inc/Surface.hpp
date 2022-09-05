@@ -613,7 +613,7 @@ public:
     // Test collision fine entre deux surfaces
     BOOL IsColliding(cSurface& dest, int xDest, int yDest, int xSrc, int ySrc, int rcWidth, int rcHeight);
 
-    HICON CreateIcon(int iconWidth, int iconHeight, COLORREF transpColor,POINT *pHotSpot);
+    HICON CreateIcon(int iconWidth, int iconHeight, COLORREF transpColor, POINT *pHotSpot);
 
     // Palette support
     BOOL Indexed();
@@ -682,7 +682,7 @@ protected:
 
     // Clipping
     HRGN SetDrawClip(HDC hDC);
-    void RestoreDrawClip(HDC hDC,HRGN hOldClipRgn);
+    void RestoreDrawClip(HDC hDC, HRGN hOldClipRgn);
 
 
 private:
