@@ -24,3 +24,13 @@
 
 #undef WIN32_LEAN_AND_MEAN
 #undef NOMINMAX
+
+
+// bitmask operators for enum classes
+#define EnumClassBitMask(T) \
+inline T operator| (T a, T b) { return (T)((int)a | (int)b); }        \
+inline T operator& (T a, T b) { return (T)((int)a & (int)b); }        \
+inline T operator^ (T a, T b) { return (T)((int)a ^ (int)b); }        \
+inline T& operator|= (T& a, T b) { return (T&)((int&)a |= (int)b); }  \
+inline T& operator&= (T& a, T b) { return (T&)((int&)a &= (int)b); }  \
+inline T& operator^= (T& a, T b) { return (T&)((int&)a ^= (int)b); }
