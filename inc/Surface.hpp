@@ -557,38 +557,38 @@ public:
 
     // 1. Simple routines : call GDI with Surface DC
     BOOL Ellipse(int left, int top, int right, int bottom, int thickness = 1, COLORREF crOutl = BLACK);
-    BOOL Ellipse(int left, int top, int right, int bottom, COLORREF crFill, int thickness /*= 0*/, COLORREF crOutl /*= BLACK*/, BOOL Fill = TRUE);
+    BOOL Ellipse(int left, int top, int right, int bottom, COLORREF crFill, int thickness /*= 0*/, COLORREF crOutl /*= BLACK*/, BOOL Fill = true);
     BOOL Rectangle(int left, int top, int right, int bottom, int thickness = 1, COLORREF crOutl = BLACK);
-    BOOL Rectangle(int left, int top, int right, int bottom, COLORREF crFill, int thickness /*= 0*/, COLORREF crOutl /*= BLACK*/, BOOL bFill = TRUE);
+    BOOL Rectangle(int left, int top, int right, int bottom, COLORREF crFill, int thickness /*= 0*/, COLORREF crOutl /*= BLACK*/, BOOL bFill = true);
     BOOL Polygon(LPPOINT pts, int nPts, int thickness = 1, COLORREF crOutl = BLACK);
-    BOOL Polygon(LPPOINT pts, int nPts, COLORREF crFill, int thickness = 0, COLORREF crOutl = BLACK, BOOL bFill = TRUE);
+    BOOL Polygon(LPPOINT pts, int nPts, COLORREF crFill, int thickness = 0, COLORREF crOutl = BLACK, BOOL bFill = true);
     BOOL Line(int x1, int y1, int x2, int y2, int thickness = 1, COLORREF crOutl = BLACK); 
 
     // 2. More complex but slower (variable opacity, anti-alias, custom filling, ...)
-    BOOL Ellipse(int left, int top, int right, int bottom, int thickness, CFillData* fdOutl, BOOL AntiA = FALSE, BlitMode bm = BlitMode::Opaque, BlitOp bo = BOP_COPY, LPARAM param = 0);
-    BOOL Ellipse(int left, int top, int right, int bottom, CFillData* fdFill, BOOL AntiA = FALSE, BlitMode bm = BlitMode::Opaque, BlitOp bo = BOP_COPY, LPARAM param = 0);
-    BOOL Ellipse(int left, int top, int right, int bottom, CFillData* fdFill, int thickness, CFillData* fdOutl, BOOL AntiA = FALSE, BlitMode bm = BlitMode::Opaque, BlitOp bo = BOP_COPY, LPARAM param = 0, BOOL Fill = TRUE);
-    BOOL Rectangle(int left, int top, int right, int bottom, int thickness, CFillData* fdOutl, BOOL AntiA = FALSE, BlitMode bm = BlitMode::Opaque, BlitOp bo = BOP_COPY, LPARAM param = 0);
-    BOOL Rectangle(int left, int top, int right, int bottom, CFillData* fdFill, BOOL AntiA = FALSE, BlitMode bm = BlitMode::Opaque, BlitOp bo = BOP_COPY, LPARAM param = 0);
-    BOOL Rectangle(int left, int top, int right, int bottom, CFillData* fdFill, int thickness, CFillData* fdOutl, BOOL AntiA = FALSE, BlitMode bm = BlitMode::Opaque, BlitOp bo = BOP_COPY, LPARAM param = 0, BOOL Fill = TRUE);
-    BOOL Polygon(LPPOINT pts, int nPts, int thickness, CFillData* fdOutl, BOOL AntiA = FALSE, BlitMode bm = BlitMode::Opaque, BlitOp bo = BOP_COPY, LPARAM param = 0);
-    BOOL Polygon(LPPOINT pts, int nPts, CFillData* fdFill, BOOL AntiA = FALSE, BlitMode bm = BlitMode::Opaque, BlitOp bo = BOP_COPY, LPARAM param = 0);
-    BOOL Polygon(LPPOINT pts, int nPts, CFillData* fdFill, int thickness, CFillData* fdOutl, BOOL AntiA = FALSE, BlitMode bm = BlitMode::Opaque, BlitOp bo = BOP_COPY, LPARAM param = 0, BOOL Fill = TRUE);
+    BOOL Ellipse(int left, int top, int right, int bottom, int thickness, CFillData* fdOutl, BOOL AntiA = false, BlitMode bm = BlitMode::Opaque, BlitOp bo = BOP_COPY, LPARAM param = 0);
+    BOOL Ellipse(int left, int top, int right, int bottom, CFillData* fdFill, BOOL AntiA = false, BlitMode bm = BlitMode::Opaque, BlitOp bo = BOP_COPY, LPARAM param = 0);
+    BOOL Ellipse(int left, int top, int right, int bottom, CFillData* fdFill, int thickness, CFillData* fdOutl, BOOL AntiA = false, BlitMode bm = BlitMode::Opaque, BlitOp bo = BOP_COPY, LPARAM param = 0, BOOL Fill = true);
+    BOOL Rectangle(int left, int top, int right, int bottom, int thickness, CFillData* fdOutl, BOOL AntiA = false, BlitMode bm = BlitMode::Opaque, BlitOp bo = BOP_COPY, LPARAM param = 0);
+    BOOL Rectangle(int left, int top, int right, int bottom, CFillData* fdFill, BOOL AntiA = false, BlitMode bm = BlitMode::Opaque, BlitOp bo = BOP_COPY, LPARAM param = 0);
+    BOOL Rectangle(int left, int top, int right, int bottom, CFillData* fdFill, int thickness, CFillData* fdOutl, BOOL AntiA = false, BlitMode bm = BlitMode::Opaque, BlitOp bo = BOP_COPY, LPARAM param = 0, BOOL Fill = true);
+    BOOL Polygon(LPPOINT pts, int nPts, int thickness, CFillData* fdOutl, BOOL AntiA = false, BlitMode bm = BlitMode::Opaque, BlitOp bo = BOP_COPY, LPARAM param = 0);
+    BOOL Polygon(LPPOINT pts, int nPts, CFillData* fdFill, BOOL AntiA = false, BlitMode bm = BlitMode::Opaque, BlitOp bo = BOP_COPY, LPARAM param = 0);
+    BOOL Polygon(LPPOINT pts, int nPts, CFillData* fdFill, int thickness, CFillData* fdOutl, BOOL AntiA = false, BlitMode bm = BlitMode::Opaque, BlitOp bo = BOP_COPY, LPARAM param = 0, BOOL Fill = true);
     BOOL Line(int x1, int y1, int x2, int y2, int thickness, CFillData* fdOutl, BOOL AntiA, BlitMode bm = BlitMode::Opaque, BlitOp bo = BOP_COPY, LPARAM param = 0);
 
     // Filled Primitives
-    BOOL FloodFill(int x, int y, int& left, int& top, int& right, int& bottom, COLORREF crFill, BOOL AntiA = FALSE, int tol = 0, BlitMode bm = BlitMode::Opaque, BlitOp bo = BOP_COPY, LPARAM param = 0);
-    BOOL FloodFill(int x, int y, COLORREF crFill, BOOL AntiA = FALSE,  int tol = 0, BlitMode bm = BlitMode::Opaque, BlitOp bo = BOP_COPY, LPARAM param = 0);
+    BOOL FloodFill(int x, int y, int& left, int& top, int& right, int& bottom, COLORREF crFill, BOOL AntiA = false, int tol = 0, BlitMode bm = BlitMode::Opaque, BlitOp bo = BOP_COPY, LPARAM param = 0);
+    BOOL FloodFill(int x, int y, COLORREF crFill, BOOL AntiA = false,  int tol = 0, BlitMode bm = BlitMode::Opaque, BlitOp bo = BOP_COPY, LPARAM param = 0);
 
 
     // Rotate surface
-    BOOL Rotate(cSurface& dest, double a, BOOL bAA, COLORREF clrFill = 0L, BOOL bTransp = TRUE);  // radian
-    BOOL Rotate(cSurface& dest, int a, BOOL bAA, COLORREF clrFill = 0L, BOOL bTransp = TRUE);     // degree
+    BOOL Rotate(cSurface& dest, double a, BOOL bAA, COLORREF clrFill = 0L, BOOL bTransp = true);  // radian
+    BOOL Rotate(cSurface& dest, int a, BOOL bAA, COLORREF clrFill = 0L, BOOL bTransp = true);     // degree
     BOOL Rotate90(cSurface& dest, BOOL b270);
 
     // Create rotated surface
-    BOOL CreateRotatedSurface(cSurface& ps, double a, BOOL bAA, COLORREF clrFill = 0L, BOOL bTransp = TRUE);
-    BOOL CreateRotatedSurface(cSurface& ps, int a, BOOL bAA, COLORREF clrFill = 0L, BOOL bTransp = TRUE);
+    BOOL CreateRotatedSurface(cSurface& ps, double a, BOOL bAA, COLORREF clrFill = 0L, BOOL bTransp = true);
+    BOOL CreateRotatedSurface(cSurface& ps, int a, BOOL bAA, COLORREF clrFill = 0L, BOOL bTransp = true);
 
     static void GetSizeOfRotatedRect(int* pWidth, int* pHeight, float angle);
 
