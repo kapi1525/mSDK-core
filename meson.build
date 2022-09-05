@@ -3,10 +3,10 @@ project(
   'cpp',
   version: '0.1.0',
   default_options: [
-    'warning_level=0',  # TODO: Cleanup Fusion headers so no warnings are shown when compiling with warning_level=3
+    'warning_level=3',  # TODO: Cleanup Fusion headers so no warnings are shown when compiling with warning_level=3
     'cpp_std=c++17'
   ],
-  # license: 'MIT' i actualy dont know FusionSDK license
+  license: 'MIT'        # i actualy dont know FusionSDK license
 )
 
 
@@ -23,7 +23,7 @@ endif
 
 
 # Compiler arguments for each target
-common   = ['-DHWABETA']
+common   = ['-DHWABETA', '-wd4100', '-wd4200', '-wd4201']   # supress warnings: 0 size array, unused function parameter and nameless enum/struct.
 edittime = common + ['-DEDITTIME']
 runtime  = common + ['-DRUNTIME']
 unicode  = ['-DUNICODE', '-D_UNICODE']
