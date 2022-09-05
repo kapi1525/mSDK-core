@@ -5,7 +5,7 @@
 
 #include "CommonSDK.hpp"
 #include <climits>
-#include <cstddef>
+#include <cstdint>
 
 
 
@@ -351,15 +351,15 @@ extern "C" DllImport BOOL FusionAPI BuildRemapTable(unsigned char*, LOGPALETTE*,
 
 
 // Color conversions
-inline BYTE AlphaToSemitransparent(BYTE Alpha) {
+inline uint8_t AlphaToSemitransparent(uint8_t Alpha) {
     return ((Alpha == 0) ? 128 : (255 - Alpha) / 2);
 }
 
-inline BYTE SemitransparentToAlpha(BYTE Semitransparent) {
+inline uint8_t SemitransparentToAlpha(uint8_t Semitransparent) {
     return ((Semitransparent == 128) ? 0 : (255 - Semitransparent * 2));
 }
 
-inline RGBAREF COLORREFToRGBAREF(COLORREF Color, BYTE Alpha) {
+inline RGBAREF COLORREFToRGBAREF(COLORREF Color, uint8_t Alpha) {
     return ((Color & 0x00FFFFFF) | (static_cast<int>(Alpha) << 24));
 }
 
@@ -409,8 +409,8 @@ public:
     void OffsetOrigin(POINT delta);
 
     // Buffer
-    BYTE* LockBuffer();
-    void UnlockBuffer(BYTE* spBuffer);
+    uint8_t* LockBuffer();
+    void UnlockBuffer(uint8_t* spBuffer);
     int GetPitch() const;
 
     // Double-buffer handling
@@ -437,12 +437,12 @@ public:
     BOOL LoadImageA(HFILE hf, DWORD lsize, LIFlags loadFlags = LIFlags::None);
     BOOL LoadImageA(LPCSTR fileName, LIFlags loadFlags = LIFlags::None);
     BOOL LoadImageA(HINSTANCE hInst, int bmpID, LIFlags loadFlags = LIFlags::None);
-    BOOL LoadImageA(BITMAPINFO* pBmi, BYTE* pBits = NULL, LIFlags loadFlags = LIFlags::None);
+    BOOL LoadImageA(BITMAPINFO* pBmi, uint8_t* pBits = NULL, LIFlags loadFlags = LIFlags::None);
 
     BOOL LoadImageW(HFILE hf, DWORD lsize, LIFlags loadFlags = LIFlags::None);
     BOOL LoadImageW(LPCWSTR fileName, LIFlags loadFlags = LIFlags::None);
     BOOL LoadImageW(HINSTANCE hInst, int bmpID, LIFlags loadFlags = LIFlags::None);
-    BOOL LoadImageW(BITMAPINFO* pBmi, BYTE* pBits = NULL, LIFlags loadFlags = LIFlags::None);
+    BOOL LoadImageW(BITMAPINFO* pBmi, uint8_t* pBits = NULL, LIFlags loadFlags = LIFlags::None);
 
     // TODO: Turn this macro into inline function
     #undef LoadImage
@@ -456,18 +456,18 @@ public:
     BOOL SaveImage(HFILE hf, SIFlags saveFlags = SIFlags::None);
     BOOL SaveImage(LPCSTR fileName, SIFlags saveFlags = SIFlags::None);
     BOOL SaveImage(LPCWSTR fileName, SIFlags saveFlags = SIFlags::None);
-    BOOL SaveImage(BITMAPINFO* pBmi, BYTE* pBits, SIFlags saveFlags = SIFlags::None);
+    BOOL SaveImage(BITMAPINFO* pBmi, uint8_t* pBits, SIFlags saveFlags = SIFlags::None);
 
     DWORD GetDIBSize();
 
 
     // Pixel functions
     void SetPixel(int x, int y, COLORREF c);
-    void SetPixel(int x, int y, BYTE R, BYTE G, BYTE B);
+    void SetPixel(int x, int y, uint8_t R, uint8_t G, uint8_t B);
     void SetPixel(int x, int y, int index);
 
     BOOL GetPixel(int x, int y, COLORREF& c) const;
-    BOOL GetPixel(int x, int y, BYTE& R, BYTE& G, BYTE& B) const;
+    BOOL GetPixel(int x, int y, uint8_t& R, uint8_t& G, uint8_t& B) const;
     BOOL GetPixel(int x, int y, int& index) const;
 
     // Faster: assume clipping is done, the origin is at (0,0) and the surface is locked
@@ -624,7 +624,7 @@ public:
     BOOL SetPalette(HPALETTE palette, SetPaletteAction action = SetPaletteAction::None);
 
     void Remap(cSurface& src);
-    void Remap(BYTE* remapTable);
+    void Remap(uint8_t* remapTable);
 
     csPalette* GetPalette();
     UINT       GetPaletteEntries(LPPALETTEENTRY paletteEntry, int index, int nbColors);
@@ -654,13 +654,13 @@ public:
 
     // Alpha channel
     BOOL      HasAlpha();
-    BYTE*     LockAlpha();
+    uint8_t*  LockAlpha();
     void      UnlockAlpha();
     int       GetAlphaPitch();
     void      CreateAlpha();
-    void      SetAlpha(BYTE* pAlpha, int nPitch);
-    void      AttachAlpha(BYTE* pAlpha, int nPitch);
-    BYTE*     DetachAlpha(LPLONG pPitch);
+    void      SetAlpha(uint8_t* pAlpha, int nPitch);
+    void      AttachAlpha(uint8_t* pAlpha, int nPitch);
+    uint8_t*  DetachAlpha(LPLONG pPitch);
     cSurface* GetAlphaSurface();
     void      ReleaseAlphaSurface(cSurface* pAlphaSf);
 
@@ -688,7 +688,7 @@ protected:
 private:
     // FIXME: CInputFile aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     // BOOL LoadPicture(CInputFile* pFile, DWORD bitmapSize, LIFlags loadFlags);
-    BOOL LoadDIB(LPBITMAPINFO pBmi, BYTE* pBits, LIFlags loadFlags);
+    BOOL LoadDIB(LPBITMAPINFO pBmi, uint8_t* pBits, LIFlags loadFlags);
 
     cSurfaceImplementation* m_actual;
     POINT origin;
