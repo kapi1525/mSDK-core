@@ -310,7 +310,7 @@ using RGBAREF = unsigned long;
 
 
 
-// Finaly surface function and cSurface class
+// Finaly surface functions and cSurface class
 
 // Allocate/Free surface
 DllImport cSurface* FusionAPI NewSurface();

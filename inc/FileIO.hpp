@@ -61,18 +61,17 @@ DllImport long       FusionAPI File_SeekEnd(FileHandle File, long Position);
 DllImport long       FusionAPI File_GetLength(FileHandle File );
 DllImport void       FusionAPI File_Close(FileHandle File);
 
-// mmfs2.lib is old enough to use shorts instead of wchar_t, this causes link errors.
 // Dont use these functions nor those with A at the end, use the universal functions defined bellow.
-DllImport FileHandle FusionAPI File_OpenW(const unsigned short* fname, int mode);
-DllImport FileHandle FusionAPI File_CreateW(const unsigned short* FileName);
-DllImport BOOL       FusionAPI File_ExistW(const unsigned short* FilePath);
+DllImport FileHandle FusionAPI File_OpenW(const wchar_t* fname, int mode);
+DllImport FileHandle FusionAPI File_CreateW(const wchar_t* FileName);
+DllImport BOOL       FusionAPI File_ExistW(const wchar_t* FilePath);
 
 
 
 // Universal functions for both unicode and ascii
 inline FileHandle File_Open(const TCHAR* FileName, int Mode) {
     #ifdef _UNICODE
-    return File_OpenW(reinterpret_cast<const unsigned short*>(FileName), Mode);
+    return File_OpenW(FileName, Mode);
     #else
     return File_OpenA(FileName, Mode);
     #endif
@@ -80,7 +79,7 @@ inline FileHandle File_Open(const TCHAR* FileName, int Mode) {
 
 inline FileHandle File_Create(const TCHAR* FileName) {
     #ifdef _UNICODE
-    return File_CreateW(reinterpret_cast<const unsigned short*>(FileName));
+    return File_CreateW(FileName);
     #else
     return File_CreateA(FileName);
     #endif
@@ -88,7 +87,7 @@ inline FileHandle File_Create(const TCHAR* FileName) {
 
 inline FileHandle File_Exist(const TCHAR* FileName) {
     #ifdef _UNICODE
-    return File_ExistW(reinterpret_cast<const unsigned short*>(FileName));
+    return File_ExistW(FileName);
     #else
     return File_ExistA(FileName);
     #endif

@@ -23,10 +23,27 @@ endif
 
 
 # Compiler arguments for each target
-common   = ['-DHWABETA', '-wd4100', '-wd4200', '-wd4201']   # supress warnings: 0 size array, unused function parameter and nameless enum/struct.
-edittime = common + ['-DEDITTIME']
-runtime  = common + ['-DRUNTIME']
-unicode  = ['-DUNICODE', '-D_UNICODE']
+common   = [
+  '-DHWABETA',      # All build are HWA
+  '-wd4100',        # Supress 0 size array warning
+  '-wd4200',        # Supress unused function parameter warning
+  '-wd4201',        # Supress nameless enum and struct warnings
+  '-Zc:wchar_t-'    # Dont treat wchar_t as builtin type ('typedef unsigned short wchar_t' will be used)
+]
+
+
+edittime = [
+  '-DEDITTIME'
+]
+
+runtime  = [
+  '-DRUNTIME'
+]
+
+unicode  = [
+  '-DUNICODE',
+  '-D_UNICODE'
+]
 
 
 mmfs2 = meson.get_compiler('cpp').find_library(
