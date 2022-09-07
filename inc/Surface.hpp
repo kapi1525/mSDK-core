@@ -4,6 +4,7 @@
 // This header declares cSurface class, other classes related to it, palete functions and predefined color macros.
 
 #include "CommonSDK.hpp"
+#include "FileIO.hpp"
 #include <climits>
 #include <cstdint>
 
@@ -238,21 +239,23 @@ EnumClassBitMask(SIFlags)
 // };
 
 // Blilt options
-enum BlitFlag {
+enum class BlitFlag {
     BLTF_ANTIA              = 0x0001,       // Anti-aliasing
     BLTF_COPYALPHA          = 0x0002,       // Copy alpha channel to destination alpha channel instead of applying it
     BLTF_SAFESRC            = 0x0010,
     BLTF_TILE               = 0x0020
 };
+EnumClassBitMask(BlitFlag)
 
 // Stretch& BlitEx options
-enum StrechFlag {
+enum class StrechFlag {
     STRF_RESAMPLE           = 0x0001,       // Resample bitmap
     STRF_RESAMPLE_TRANSP    = 0x0002,       // Resample bitmap, but doesn't resample the transparent color
     STRF_COPYALPHA          = 0x0004,       // Copy (stretch) alpha channel to destination alpha channel instead of applying it
     STRF_SAFESRC            = 0x0010,
     STRF_TILE               = 0x0020
 };
+EnumClassBitMask(StrechFlag)
 
 // Returned by cSurface::GetLastError() (?)
 enum class SurfaceError {
@@ -665,7 +668,7 @@ protected:
 
 private:
     // FIXME: CInputFile aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-    // BOOL LoadPicture(CInputFile* pFile, DWORD bitmapSize, LIFlags loadFlags);
+    BOOL LoadPicture(CInputFile* pFile, DWORD bitmapSize, LIFlags loadFlags);
     BOOL LoadDIB(LPBITMAPINFO pBmi, uint8_t* pBits, LIFlags loadFlags);
 
     cSurfaceImplementation* m_actual;
