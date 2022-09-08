@@ -132,8 +132,8 @@ public:
     virtual uint8_t* GetBuffer(unsigned int nSize);
     virtual void FreeBuffer(uint8_t* buf);
 
-    virtual LPSTR GetFileNameA() = 0;
-    virtual LPWSTR GetFileNameW() = 0;
+    virtual char* GetFileNameA() = 0;
+    virtual wchar_t* GetFileNameW() = 0;
 
     // TODO: Turn these into inline functions
     // #ifdef _CFCFILE_UNICODE_DEFS
@@ -158,10 +158,10 @@ public:
 
     int Create(FileHandle hf);
     int Create(FileHandle hf, unsigned long dwOffset, unsigned long dwSize);
-    int Create(LPCSTR filename);
-    int Create(LPCSTR filename, unsigned long dwOffset, unsigned long dwSize);
-    int Create(LPCWSTR filename);
-    int Create(LPCWSTR filename, unsigned long dwOffset, unsigned long dwSize);
+    int Create(const char* filename);
+    int Create(const char* filename, unsigned long dwOffset, unsigned long dwSize);
+    int Create(const wchat_t* filename);
+    int Create(const wchat_t* filename, unsigned long dwOffset, unsigned long dwSize);
 
     virtual int Read(uint8_t* dest, unsigned long lsize);
     virtual int Read(uint8_t* dest, unsigned long lsize, unsigned long* pRead);
@@ -178,8 +178,8 @@ public:
     // virtual uint8_t* GetBuffer(unsigned int nSize);
     // virtual void FreeBuffer(uint8_t* buf);
 
-    virtual LPSTR GetFileNameA();
-    virtual LPWSTR GetFileNameW();
+    virtual char* GetFileNameA();
+    virtual wchar_t* GetFileNameW();
 
 protected:
     int Attach(HANDLE hnd, unsigned long dwOffset, unsigned long dwSize);
@@ -189,8 +189,8 @@ private:
     uint8_t* m_buffer;
     uint8_t* m_bufcurr;
     unsigned long m_remains;
-    LPWSTR m_fnameW;
-    LPSTR m_fnameA;
+    wchar_t* m_fnameW;
+    char* m_fnameA;
 
     unsigned long m_startOffset;
     unsigned long m_length;
@@ -224,8 +224,8 @@ public:
     virtual uint8_t* GetBuffer(unsigned int nSize);
     virtual void FreeBuffer(uint8_t* buf);
 
-    virtual LPSTR GetFileNameA();
-    virtual LPWSTR GetFileNameW();
+    virtual char* GetFileNameA();
+    virtual wchar_t* GetFileNameW();
 
 private:
     uint8_t* m_buffer;
@@ -258,8 +258,8 @@ public:
     virtual long GetPosition() = 0;
     virtual long Seek(long pos, int method) = 0;
 
-    virtual LPSTR GetFileNameA() = 0;
-    virtual LPWSTR GetFileNameW() = 0;
+    virtual char* GetFileNameA() = 0;
+    virtual wchar_t* GetFileNameW() = 0;
 };
 
 
@@ -282,8 +282,8 @@ public:
     virtual long GetPosition();
     virtual long Seek(long pos, int method);
 
-    virtual LPSTR GetFileNameA();
-    virtual LPWSTR GetFileNameW();
+    virtual char* GetFileNameA();
+    virtual wchar_t* GetFileNameW();
 
 private:
     uint8_t* m_buffer;
@@ -302,8 +302,8 @@ public:
     virtual ~COutputBufFile();
 
     int Create(FileHandle hf, unsigned int nBufferSize = 4096);
-    int Create(LPCSTR fname, unsigned int nBufferSize = 4096);
-    int Create(LPCWSTR fname, unsigned int nBufferSize = 4096);
+    int Create(const char* fname, unsigned int nBufferSize = 4096);
+    int Create(const wchat_t* fname, unsigned int nBufferSize = 4096);
 
     virtual int Write(uint8_t* pb, unsigned int sz);
     virtual int Flush();
@@ -312,16 +312,16 @@ public:
     virtual long GetPosition();
     virtual long Seek(long pos, int method);
 
-    virtual LPSTR GetFileNameA();
-    virtual LPWSTR GetFileNameW();
+    virtual char* GetFileNameA();
+    virtual wchar_t* GetFileNameW();
 
 private:
     FileHandle m_hf;
-    LPWSTR m_fnameW;
+    wchar_t* m_fnameW;
     uint8_t* m_buffer;
     uint8_t* m_curptr;
     unsigned long m_cursize;
     unsigned long m_buffersize;
     BOOL m_bBuffered;
-    LPSTR m_fnameA;
+    char* m_fnameA;
 };
