@@ -4,7 +4,6 @@
 // This header declares cSurface class, other classes related to it, palete functions and predefined color macros.
 
 #include "CommonSDK.hpp"
-#include "FileIO.hpp"
 #include <climits>
 #include <cstdint>
 
@@ -40,7 +39,7 @@ public:
     virtual BOOL Fill(cSurface* pSf, int trueW = INT_MAX, int trueH = INT_MAX, BOOL bForceOpaqueBlack = false);
 
 protected:
-    inline  void VERIFY_BLACK(COLORREF& cr);
+    inline void VERIFY_BLACK(COLORREF& cr);
 };
 
 
@@ -240,20 +239,20 @@ EnumClassBitMask(SIFlags)
 
 // Blilt options
 enum class BlitFlag {
-    BLTF_ANTIA              = 0x0001,       // Anti-aliasing
-    BLTF_COPYALPHA          = 0x0002,       // Copy alpha channel to destination alpha channel instead of applying it
-    BLTF_SAFESRC            = 0x0010,
-    BLTF_TILE               = 0x0020
+    AntiAliasing    = 1 << 0,   // Anti-aliasing
+    CopyAlpha       = 1 << 1,   // Copy alpha channel to destination alpha channel instead of applying it
+    SafeSource      = 1 << 4,   // ?
+    Tile            = 1 << 5    // ?
 };
 EnumClassBitMask(BlitFlag)
 
 // Stretch& BlitEx options
 enum class StrechFlag {
-    STRF_RESAMPLE           = 0x0001,       // Resample bitmap
-    STRF_RESAMPLE_TRANSP    = 0x0002,       // Resample bitmap, but doesn't resample the transparent color
-    STRF_COPYALPHA          = 0x0004,       // Copy (stretch) alpha channel to destination alpha channel instead of applying it
-    STRF_SAFESRC            = 0x0010,
-    STRF_TILE               = 0x0020
+    Resample        = 1 << 0,   // Resample bitmap
+    ResampleTrans   = 1 << 1,   // Resample bitmap, but doesn't resample the transparent color
+    CopyAlpha       = 1 << 2,   // Copy (stretch) alpha channel to destination alpha channel instead of applying it
+    SaveSource      = 1 << 4,   // ?
+    Tile            = 1 << 5    // ?
 };
 EnumClassBitMask(StrechFlag)
 
@@ -667,8 +666,9 @@ protected:
 
 
 private:
-    // FIXME: CInputFile aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-    BOOL LoadPicture(CInputFile* pFile, DWORD bitmapSize, LIFlags loadFlags);
+    // Commented this out so we can stop includeing FileIO.hpp
+    // This is a private function so this dosent mater
+    // BOOL LoadPicture(CInputFile* pFile, DWORD bitmapSize, LIFlags loadFlags);
     BOOL LoadDIB(LPBITMAPINFO pBmi, uint8_t* pBits, LIFlags loadFlags);
 
     cSurfaceImplementation* m_actual;

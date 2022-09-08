@@ -97,6 +97,7 @@ inline FileHandle File_Exist(const TCHAR* FileName) {
 
 
 // Abstract file classes
+// Prefer file functions over these
 
 // Input file - abstract class
 class DllImport CInputFile {
@@ -106,7 +107,7 @@ public:
     virtual void Delete();
 
     virtual int Read(uint8_t* dest, unsigned long lsize) = 0;
-    virtual int Read (uint8_t* dest, unsigned long lsize, unsigned long* pRead) = 0;
+    virtual int Read(uint8_t* dest, unsigned long lsize, unsigned long* pRead) = 0;
     virtual int ReadByte(uint8_t* dest) = 0;
     virtual int ReadIntelWord(unsigned short* dest);
     virtual int ReadIntelDWord(unsigned long* dest);
@@ -146,6 +147,8 @@ public:
 
 
 // Bufferized input file
+#define BUFFILE_BUFFER_SIZE 16384
+
 class DllImport CInputBufFile : public CInputFile {
 public:
     CInputBufFile();
@@ -161,7 +164,7 @@ public:
     int Create(LPCWSTR filename, unsigned long dwOffset, unsigned long dwSize);
 
     virtual int Read(uint8_t* dest, unsigned long lsize);
-    virtual int Read (uint8_t* dest, unsigned long lsize, unsigned long* pRead);
+    virtual int Read(uint8_t* dest, unsigned long lsize, unsigned long* pRead);
     virtual int ReadByte(uint8_t* dest);
     // virtual int ReadWord(unsigned short* dest);
     // virtual int ReadDWord(unsigned long* dest);
@@ -192,7 +195,6 @@ private:
     unsigned long m_startOffset;
     unsigned long m_length;
 };
-#define BUFFILE_BUFFER_SIZE 16384
 
 
 // Memory input file
@@ -208,7 +210,7 @@ public:
     uint8_t* GetMemBuffer();
 
     virtual int Read(uint8_t* dest, unsigned long lsize);
-    virtual int Read (uint8_t* dest, unsigned long lsize, unsigned long* pRead);
+    virtual int Read(uint8_t* dest, unsigned long lsize, unsigned long* pRead);
     virtual int ReadByte(uint8_t* dest);
     // virtual int ReadWord(unsigned short* dest);
     // virtual int ReadDWord(unsigned long* dest);
@@ -232,6 +234,7 @@ private:
     unsigned long m_remains;
     BOOL m_bAutoDelete;
 };
+
 
 // Output file: base class
 class DllImport COutputFile {
@@ -258,6 +261,7 @@ public:
     virtual LPSTR GetFileNameA() = 0;
     virtual LPWSTR GetFileNameW() = 0;
 };
+
 
 // Memory output file
 class DllImport COutputMemFile : public COutputFile {
@@ -289,6 +293,7 @@ private:
     unsigned long m_blocksize;
     BOOL m_bReallocable;
 };
+
 
 // Bufferized output file
 class DllImport COutputBufFile : public COutputFile {
