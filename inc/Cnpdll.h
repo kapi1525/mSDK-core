@@ -791,7 +791,7 @@ DLLExport32 int		WINAPI UnlockBank		(npAppli, int);
 DLLExport32 int		WINAPI PurgeBank		(npAppli, int);
 DLLExport32 void	WINAPI KillBank			(npAppli, int);
 DLLExport32 int		WINAPI Bank_GetEltCount (npAppli ptApp, UINT bkNum);
-DLLExport32 LPVOID	WINAPI Bank_GetEltAddr (npAppli ptApp, UINT bkNum, UINT eNum);
+DLLExport32 void*	WINAPI Bank_GetEltAddr (npAppli ptApp, UINT bkNum, UINT eNum);
 
 DLLExport32 void	WINAPI EndAppli			(npAppli);
 
@@ -929,7 +929,7 @@ DLLExport32	void	WINAPI LogFont32To16W	( LOGFONT16   * lf16, LOGFONTW   * lf32 )
 	// ------
 DLLExport32 void		WINAPI PasteSprite		(npWin, DWORD, int, int, DWORD);
 DLLExport32 void		WINAPI PasteSpriteEffect (npWin, DWORD, int, int, DWORD, DWORD, LPARAM);
-DLLExport32 DWORD		WINAPI AddImage			(npAppli, WORD, WORD, short, short, short, short, COLORREF, DWORD, LPVOID, LPBYTE);
+DLLExport32 DWORD		WINAPI AddImage			(npAppli, WORD, WORD, short, short, short, short, COLORREF, DWORD, void*, LPBYTE);
 DLLExport32 DWORD		WINAPI IncImageCount	(npAppli, DWORD);
 DLLExport32 int			WINAPI IsImageEmpty		(npAppli, DWORD);
 DLLExport32 DWORD		WINAPI GetImageBits		(npAppli, DWORD, DWORD, LPBYTE);
@@ -1005,7 +1005,7 @@ DLLExport32 DWORD	WINAPI SetSpriteColFlag			(npWin, npSpr, DWORD);				// UINT = 
 DLLExport32 npSpr   WINAPI SpriteCol_TestPoint		(npWin, npSpr, int, int, int, DWORD);		// Entre 1 pixel et les sprites sauf un
 DLLExport32 npSpr   WINAPI SpriteCol_TestRect		(npWin, npSpr, int, int, int, int, int, DWORD);		// Entre 1 rectangle et les sprites sauf un
 DLLExport32 npSpr	WINAPI SpriteCol_TestSprite		(npWin ptrWin, npSpr ptSpr, DWORD newImg, int newX, int newY, ANGLETYPE newAngle, float newScaleX, float newScaleY, int subHt, DWORD dwFlags);
-DLLExport32 UINT	WINAPI SpriteCol_TestSprite_All	(npWin, npSpr, LPVOID*, DWORD, int, int, ANGLETYPE, float, float, DWORD);
+DLLExport32 UINT	WINAPI SpriteCol_TestSprite_All	(npWin, npSpr, void**, DWORD, int, int, ANGLETYPE, float, float, DWORD);
 DLLExport32 int     WINAPI WinSetColMode			(npWin, WORD);						// Mode BOX ou BITMAP
 
 DLLExport32 BOOL	WINAPI ColMask_Create			(npWin, UINT, UINT, DWORD);			// Creation bitmap masque fond
@@ -1198,7 +1198,7 @@ enum {
 DLLExport32 BOOL WINAPI WinAttachSurface (int idWin, cSurface   * cs);
 DLLExport32 void WINAPI WinDetachSurface (int idWin);
 
-DLLExport32 BOOL WINAPI LockImageSurface (LPVOID, DWORD hImage, cSurface   &cs, int flags=LOCKIMAGE_READBLITONLY);
+DLLExport32 BOOL WINAPI LockImageSurface (void*, DWORD hImage, cSurface   &cs, int flags=LOCKIMAGE_READBLITONLY);
 DLLExport32 void WINAPI UnlockImageSurface (cSurface   &cs);
 
 // Get window surface (logical screen)

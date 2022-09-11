@@ -207,7 +207,7 @@ protected:
 	virtual ~CPropPtrValue() {}
 public:
 	CPropPtrValue() { m_ptr = NULL; }
-	CPropPtrValue(LPVOID ptr) { m_ptr = ptr; }
+	CPropPtrValue(void* ptr) { m_ptr = ptr; }
 
 	virtual void Delete() { delete this; }
 	virtual CPropValue* CreateCopy() { return new CPropPtrValue(m_ptr); }
@@ -215,7 +215,7 @@ public:
 	virtual DWORD GetClassID() { return 'LPTR'; }
 
 public:
-	LPVOID	m_ptr;
+	void*	m_ptr;
 };
 
 //////////////

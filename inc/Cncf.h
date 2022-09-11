@@ -2386,7 +2386,7 @@ typedef struct RunHeader {
 
 	int			rhDebuggerCommand;			// Current debugger command
 	char		rhFree13[DB_BUFFERSIZE];		// Buffer libre!
-	LPVOID		rhDbOldHO;
+	void*		rhDbOldHO;
 	WORD		rhDbOldId;
 	WORD		rhFree7;					
 
@@ -2423,7 +2423,7 @@ typedef struct headerObject {
 #ifdef __cplusplus
 	headerObject* hoAddress;			
 #else
-	LPVOID	hoAddress;
+	void*	hoAddress;
 #endif
 	HFII	hoHFII;						// Number of LevObj
 	OINUM  	hoOi;						// Number of OI
@@ -2812,8 +2812,8 @@ typedef struct extHeader
 	DWORD			extSize;
 	DWORD			extMaxSize;
 	DWORD			extVersion;			// Version number
-	LPVOID			extID;				// object's identifier
-	LPVOID			extPrivateData;		// private data
+	void*			extID;				// object's identifier
+	void*			extPrivateData;		// private data
 } extHeader;
 typedef extHeader *		LPEXT;
 
@@ -3228,7 +3228,7 @@ typedef struct tagCallTables
 		#ifdef __cplusplus
 			drawRoutine* next;
 		#else
-			LPVOID	next;
+			void*	next;
 		#endif
 		DRAWROUTINE_PROC routine;
 		long	param1;

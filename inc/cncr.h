@@ -292,7 +292,7 @@ typedef struct CRunFrame {
 	LPEVG			m_eventPrograms;
 	DWORD			m_free[MAX_EVENTPROGRAMS-1];
 	LPOIL			m_oiList;
-	LPVOID			m_free0;
+	void*			m_free0;
 	LPWORD			m_qualToOiList;
 	LPWORD			m_qualOilPtr;		// Ne pas liberer!
 	LPWORD			m_qualOilPtr2;		// Ne pas liberer!
@@ -329,7 +329,7 @@ typedef struct CRunFrame {
 	LPTSTR			m_pTempString[MAX_TEMPSTRING];	// not used
 
 	// Other
-	LPVOID			m_pfree;	// cSurface*		m_pSaveSurface;
+	void*			m_pfree;	// cSurface*		m_pSaveSurface;
 	int				m_leEditWinWidth;
 	int				m_leEditWinHeight;
 	DWORD			m_dwColMaskBits;
@@ -498,7 +498,7 @@ typedef struct CRunApp {
 	#ifndef __cplusplus
 	#undef CRunApp
 	#endif
-	LPVOID			m_pSubAppObject;		// LPRS
+	void*			m_pSubAppObject;		// LPRS
 	DWORD			m_dwSubAppOptions;		// Sub-app options
 	BOOL			m_bSubAppIsVisible;		// Sub-app visibility
 	HICON			m_hSubAppIcon;			// Sub-app icon

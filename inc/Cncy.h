@@ -986,7 +986,7 @@ typedef Transition_Data * LPTRANSITIONDATA;
 
 #ifndef _H2INC
 typedef short *				LPSHORT;
-typedef LPVOID *			LPLPVOID;
+typedef void* *			LPLPVOID;
 #endif
 
 // Versions
@@ -1294,7 +1294,7 @@ typedef	struct	mv {
 	#ifdef __cplusplus
 		RunHeader*		mvRunHdr;				// Current RunHeader
 	#else
-		LPVOID			mvRunHdr;
+		void*			mvRunHdr;
 	#endif
 	DWORD				mvPrefs;				// Preferences (sound on/off)
 	LPTSTR				subType;
@@ -1314,7 +1314,7 @@ typedef	struct	mv {
 	int					mvModalSubAppCount;
 	UINT				mvLanguageID;
 	LPCWSTR				mvModuleTextsPathname;
-	LPVOID				mvFree[3];
+	void*				mvFree[3];
 
 	// Functions
 	////////////
@@ -1326,13 +1326,13 @@ typedef	struct	mv {
 	BOOL				(CALLBACK * mvGetDefaultFontA) (LPLOGFONTA plf, LPSTR pStyle, int cbSize);
 
 	// Editor: Edit images and animations
-	BOOL				(CALLBACK * mvEditSurfaceA) (LPVOID edPtr, LPEDITSURFACEPARAMSA pParams, HWND hParent);
-	BOOL				(CALLBACK * mvEditImageA) (LPVOID edPtr, LPEDITIMAGEPARAMSA pParams, HWND hParent);
-	BOOL				(CALLBACK * mvEditAnimationA) (LPVOID edPtr, LPEDITANIMATIONPARAMSA pParams, HWND hParent);
+	BOOL				(CALLBACK * mvEditSurfaceA) (void* edPtr, LPEDITSURFACEPARAMSA pParams, HWND hParent);
+	BOOL				(CALLBACK * mvEditImageA) (void* edPtr, LPEDITIMAGEPARAMSA pParams, HWND hParent);
+	BOOL				(CALLBACK * mvEditAnimationA) (void* edPtr, LPEDITANIMATIONPARAMSA pParams, HWND hParent);
 
 	// Runtime: Extension User data
-	LPVOID				(CALLBACK * mvGetExtUserData) (CRunApp* pApp, HINSTANCE hInst);
-	LPVOID				(CALLBACK * mvSetExtUserData) (CRunApp* pApp, HINSTANCE hInst, LPVOID pData);
+	void*				(CALLBACK * mvGetExtUserData) (CRunApp* pApp, HINSTANCE hInst);
+	void*				(CALLBACK * mvSetExtUserData) (CRunApp* pApp, HINSTANCE hInst, void* pData);
 
 	// Runtime: Register dialog box
 	void				(CALLBACK * mvRegisterDialogBox) (HWND hDlg);
@@ -1351,16 +1351,16 @@ typedef	struct	mv {
 	int					(CALLBACK * mvLoadNetFileA) (LPSTR pFilename);
 
 	// Plugin: send command to Vitalize
-	int					(CALLBACK * mvNetCommandA) (int, LPVOID, DWORD, LPVOID, DWORD);
+	int					(CALLBACK * mvNetCommandA) (int, void*, DWORD, void*, DWORD);
 
 	// Editor & Runtime: Returns the version of MMF or of the runtime
 	DWORD				(CALLBACK * mvGetVersion) ();
 
 	// Editor & Runtime: callback function for properties or other functions
 	#ifdef _cplusplus
-		LRESULT			(CALLBACK * mvCallFunction) (LPVOID edPtr, int nFnc, LPARAM lParam1=0, LPARAM lParam2=0, LPARAM lParam3=0);
+		LRESULT			(CALLBACK * mvCallFunction) (void* edPtr, int nFnc, LPARAM lParam1=0, LPARAM lParam2=0, LPARAM lParam3=0);
 	#else
-		LRESULT			(CALLBACK * mvCallFunction) (LPVOID edPtr, int nFnc, LPARAM lParam1, LPARAM lParam2, LPARAM lParam3);
+		LRESULT			(CALLBACK * mvCallFunction) (void* edPtr, int nFnc, LPARAM lParam1, LPARAM lParam2, LPARAM lParam3);
 	#endif
 
 	// Editor: Open Help file (UNICODE)
@@ -1370,9 +1370,9 @@ typedef	struct	mv {
 	BOOL				(CALLBACK * mvGetDefaultFontW) (LPLOGFONTW plf, LPWSTR pStyle, int cbSize);
 
 	// Editor: Edit images and animations (UNICODE)
-	BOOL				(CALLBACK * mvEditSurfaceW) (LPVOID edPtr, LPEDITSURFACEPARAMSW pParams, HWND hParent);
-	BOOL				(CALLBACK * mvEditImageW) (LPVOID edPtr, LPEDITIMAGEPARAMSW pParams, HWND hParent);
-	BOOL				(CALLBACK * mvEditAnimationW) (LPVOID edPtr, LPEDITANIMATIONPARAMSW pParams, HWND hParent);
+	BOOL				(CALLBACK * mvEditSurfaceW) (void* edPtr, LPEDITSURFACEPARAMSW pParams, HWND hParent);
+	BOOL				(CALLBACK * mvEditImageW) (void* edPtr, LPEDITIMAGEPARAMSW pParams, HWND hParent);
+	BOOL				(CALLBACK * mvEditAnimationW) (void* edPtr, LPEDITANIMATIONPARAMSW pParams, HWND hParent);
 
 	// Runtime: Binary files (UNICODE
 	BOOL				(CALLBACK * mvGetFileW)(LPCWSTR pPath, LPWSTR pFilePath, DWORD dwFlags);
@@ -1383,10 +1383,10 @@ typedef	struct	mv {
 	int					(CALLBACK * mvLoadNetFileW) (LPWSTR pFilename);
 
 	// Plugin: send command to Vitalize
-	int					(CALLBACK * mvNetCommandW) (int, LPVOID, DWORD, LPVOID, DWORD);
+	int					(CALLBACK * mvNetCommandW) (int, void*, DWORD, void*, DWORD);
 
 	// Place-holder for next versions
-	LPVOID				mvAdditionalFncs[6];
+	void*				mvAdditionalFncs[6];
 
 #ifdef __cplusplus
 };
@@ -1485,70 +1485,70 @@ typedef struct CreateImageFromFileInfo {
 
 // Callback function macros for mvCallFunction
 #ifdef __cplusplus
-__inline void mvInsertProps(LPMV mV, LPVOID edPtr, PropData* pProperties, UINT nInsertPropID, BOOL bAfter) \
+__inline void mvInsertProps(LPMV mV, void* edPtr, PropData* pProperties, UINT nInsertPropID, BOOL bAfter) \
 	{ mV->mvCallFunction(edPtr, EF_INSERTPROPS, (LPARAM)pProperties, (LPARAM)nInsertPropID, (LPARAM)bAfter); }
 
-__inline void mvRemoveProp(LPMV mV, LPVOID edPtr, UINT nPropID) \
+__inline void mvRemoveProp(LPMV mV, void* edPtr, UINT nPropID) \
 	{ mV->mvCallFunction(edPtr, EF_REMOVEPROP, (LPARAM)nPropID, (LPARAM)0, (LPARAM)0); }
 
-__inline void mvRemoveProps(LPMV mV, LPVOID edPtr, PropData* pProperties) \
+__inline void mvRemoveProps(LPMV mV, void* edPtr, PropData* pProperties) \
 	{ mV->mvCallFunction(edPtr, EF_REMOVEPROPS, (LPARAM)pProperties, (LPARAM)0, (LPARAM)0); }
 
-__inline void mvRefreshProp(LPMV mV, LPVOID edPtr, UINT nPropID, BOOL bReInit) \
+__inline void mvRefreshProp(LPMV mV, void* edPtr, UINT nPropID, BOOL bReInit) \
 	{ mV->mvCallFunction(edPtr, EF_REFRESHPROP, (LPARAM)nPropID, (LPARAM)bReInit, (LPARAM)0); }
 
-__inline LPVOID mvReAllocEditData(LPMV mV, LPVOID edPtr, DWORD dwNewSize) \
-	{ return (LPVOID)mV->mvCallFunction(edPtr, EF_REALLOCEDITDATA, (LPARAM)edPtr, dwNewSize, 0); }
+__inline void* mvReAllocEditData(LPMV mV, void* edPtr, DWORD dwNewSize) \
+	{ return (void*)mV->mvCallFunction(edPtr, EF_REALLOCEDITDATA, (LPARAM)edPtr, dwNewSize, 0); }
 
-__inline CPropValue* mvGetPropValue(LPMV mV, LPVOID edPtr, UINT nPropID) \
+__inline CPropValue* mvGetPropValue(LPMV mV, void* edPtr, UINT nPropID) \
 	{ return (CPropValue*)mV->mvCallFunction(edPtr, EF_GETPROPVALUE, (LPARAM)nPropID, (LPARAM)0, (LPARAM)0); }
 
-__inline CPropValue* mvGetAppPropValue(LPMV mV, LPVOID edPtr, UINT nPropID) \
+__inline CPropValue* mvGetAppPropValue(LPMV mV, void* edPtr, UINT nPropID) \
 	{ return (CPropValue*)mV->mvCallFunction(edPtr, EF_GETAPPPROPVALUE, (LPARAM)nPropID, (LPARAM)0, (LPARAM)0); }
 
-__inline CPropValue* mvGetFramePropValue(LPMV mV, LPVOID edPtr, UINT nPropID) \
+__inline CPropValue* mvGetFramePropValue(LPMV mV, void* edPtr, UINT nPropID) \
 	{ return (CPropValue*)mV->mvCallFunction(edPtr, EF_GETFRAMEPROPVALUE, (LPARAM)nPropID, (LPARAM)0, (LPARAM)0); }
 
-__inline void mvSetPropValue(LPMV mV, LPVOID edPtr, UINT nPropID, CPropValue* pValue) \
+__inline void mvSetPropValue(LPMV mV, void* edPtr, UINT nPropID, CPropValue* pValue) \
 	{ mV->mvCallFunction(edPtr, EF_SETPROPVALUE, (LPARAM)nPropID, (LPARAM)pValue, (LPARAM)0); }
 
-__inline void mvSetAppPropValue(LPMV mV, LPVOID edPtr, UINT nPropID, CPropValue* pValue) \
+__inline void mvSetAppPropValue(LPMV mV, void* edPtr, UINT nPropID, CPropValue* pValue) \
 	{ mV->mvCallFunction(edPtr, EF_SETAPPPROPVALUE, (LPARAM)nPropID, (LPARAM)pValue, (LPARAM)0); }
 
-__inline void mvSetFramePropValue(LPMV mV, LPVOID edPtr, UINT nPropID, CPropValue* pValue) \
+__inline void mvSetFramePropValue(LPMV mV, void* edPtr, UINT nPropID, CPropValue* pValue) \
 	{ mV->mvCallFunction(edPtr, EF_SETFRAMEPROPVALUE, (LPARAM)nPropID, (LPARAM)pValue, (LPARAM)0); }
 
-__inline UINT mvGetPropCheck(LPMV mV, LPVOID edPtr, UINT nPropID) \
+__inline UINT mvGetPropCheck(LPMV mV, void* edPtr, UINT nPropID) \
 	{ return (UINT)mV->mvCallFunction(edPtr, EF_GETPROPCHECK, (LPARAM)nPropID, (LPARAM)0, (LPARAM)0); }
 
-__inline UINT mvGetAppPropCheck(LPMV mV, LPVOID edPtr, UINT nPropID) \
+__inline UINT mvGetAppPropCheck(LPMV mV, void* edPtr, UINT nPropID) \
 	{ return (UINT)mV->mvCallFunction(edPtr, EF_GETAPPPROPCHECK, (LPARAM)nPropID, (LPARAM)0, (LPARAM)0); }
 
-__inline UINT mvGetFramePropCheck(LPMV mV, LPVOID edPtr, UINT nPropID) \
+__inline UINT mvGetFramePropCheck(LPMV mV, void* edPtr, UINT nPropID) \
 	{ return (UINT)mV->mvCallFunction(edPtr, EF_GETFRAMEPROPCHECK, (LPARAM)nPropID, (LPARAM)0, (LPARAM)0); }
 
-__inline void mvSetPropCheck(LPMV mV, LPVOID edPtr, UINT nPropID, UINT nCheck) \
+__inline void mvSetPropCheck(LPMV mV, void* edPtr, UINT nPropID, UINT nCheck) \
 	{ mV->mvCallFunction(edPtr, EF_SETPROPCHECK, (LPARAM)nPropID, (LPARAM)nCheck, (LPARAM)0); }
 
-__inline void mvSetAppPropCheck(LPMV mV, LPVOID edPtr, UINT nPropID, UINT nCheck) \
+__inline void mvSetAppPropCheck(LPMV mV, void* edPtr, UINT nPropID, UINT nCheck) \
 	{ mV->mvCallFunction(edPtr, EF_SETAPPPROPCHECK, (LPARAM)nPropID, (LPARAM)nCheck, (LPARAM)0); }
 
-__inline void mvSetFramePropCheck(LPMV mV, LPVOID edPtr, UINT nPropID, UINT nCheck) \
+__inline void mvSetFramePropCheck(LPMV mV, void* edPtr, UINT nPropID, UINT nCheck) \
 	{ mV->mvCallFunction(edPtr, EF_SETFRAMEPROPCHECK, (LPARAM)nPropID, (LPARAM)nCheck, (LPARAM)0); }
 
-__inline void mvInvalidateObject(LPMV mV, LPVOID edPtr) \
+__inline void mvInvalidateObject(LPMV mV, void* edPtr) \
 	{ mV->mvCallFunction(edPtr, EF_INVALIDATEOBJECT, (LPARAM)0, (LPARAM)0, (LPARAM)0); }
 
-__inline LPVOID mvMalloc(LPMV mV, int nSize) \
-	{ return (LPVOID)mV->mvCallFunction(NULL, EF_MALLOC, (LPARAM)nSize, (LPARAM)0, (LPARAM)0); }
+__inline void* mvMalloc(LPMV mV, int nSize) \
+	{ return (void*)mV->mvCallFunction(NULL, EF_MALLOC, (LPARAM)nSize, (LPARAM)0, (LPARAM)0); }
 
-__inline LPVOID mvCalloc(LPMV mV, int nSize) \
-	{ return (LPVOID)mV->mvCallFunction(NULL, EF_CALLOC, (LPARAM)nSize, (LPARAM)0, (LPARAM)0); }
+__inline void* mvCalloc(LPMV mV, int nSize) \
+	{ return (void*)mV->mvCallFunction(NULL, EF_CALLOC, (LPARAM)nSize, (LPARAM)0, (LPARAM)0); }
 
-__inline LPVOID mvReAlloc(LPMV mV, LPVOID ptr, int nNewSize) \
-	{ return (LPVOID)mV->mvCallFunction(NULL, EF_REALLOC, (LPARAM)ptr, (LPARAM)nNewSize, (LPARAM)0); }
+__inline void* mvReAlloc(LPMV mV, void* ptr, int nNewSize) \
+	{ return (void*)mV->mvCallFunction(NULL, EF_REALLOC, (LPARAM)ptr, (LPARAM)nNewSize, (LPARAM)0); }
 
-__inline void mvFree(LPMV mV, LPVOID ptr) \
+__inline void mvFree(LPMV mV, void* ptr) \
 	{ mV->mvCallFunction(NULL, EF_FREE, (LPARAM)ptr, (LPARAM)0, (LPARAM)0); }
 
 __inline void mvRecalcLayout(LPMV mV) \
@@ -1560,14 +1560,14 @@ __inline CSoundManager* mvGetSoundMgr(LPMV mV) \
 __inline void mvCloseSoundMgr(LPMV mV) \
 	{ mV->mvCallFunction(NULL, EF_CLOSESOUNDMGR, (LPARAM)0, (LPARAM)0, (LPARAM)0); }
 
-__inline int mvGetNItems(LPMV mV, LPVOID edPtr, LPCSTR extName) \
+__inline int mvGetNItems(LPMV mV, void* edPtr, LPCSTR extName) \
 	{ return mV->mvCallFunction(edPtr, EF_GETNITEMS, (LPARAM)extName, (LPARAM)0, (LPARAM)0); }
 
-__inline LPVOID mvGetFirstItem(LPMV mV, LPVOID edPtr, LPCSTR extName) \
-	{ return (LPVOID)mV->mvCallFunction(edPtr, EF_GETNEXTITEM, (LPARAM)extName, (LPARAM)0, (LPARAM)0); }
+__inline void* mvGetFirstItem(LPMV mV, void* edPtr, LPCSTR extName) \
+	{ return (void*)mV->mvCallFunction(edPtr, EF_GETNEXTITEM, (LPARAM)extName, (LPARAM)0, (LPARAM)0); }
 
-__inline LPVOID mvGetNextItem(LPMV mV, LPVOID edPtr, LPVOID edPtr1, LPCSTR extName) \
-	{ return (LPVOID)mV->mvCallFunction(edPtr, EF_GETNEXTITEM, (LPARAM)edPtr1, (LPARAM)extName, (LPARAM)0); }
+__inline void* mvGetNextItem(LPMV mV, void* edPtr, void* edPtr1, LPCSTR extName) \
+	{ return (void*)mV->mvCallFunction(edPtr, EF_GETNEXTITEM, (LPARAM)edPtr1, (LPARAM)extName, (LPARAM)0); }
 
 #ifdef HWABETA
 
@@ -1585,8 +1585,8 @@ __inline BOOL mvCreateImageFromFileA(LPMV mV, LPWORD pwImg, LPCSTR pFilename, Cr
 __inline BOOL mvCreateImageFromFileW(LPMV mV, LPWORD pwImg, LPCWSTR pFilename, CreateImageFromFileInfo* pInfo) \
 	{ return (BOOL)mV->mvCallFunction(NULL, EF_CREATEIMAGEFROMFILEW, (LPARAM)pwImg, (LPARAM)pFilename, (LPARAM)pInfo); }
 
-__inline LPVOID mvNeebBackgroundAccess(LPMV mV, CRunFrame* pFrame, BOOL bNeedAccess) \
-	{ return (LPVOID)mV->mvCallFunction(NULL, EF_NEEDBACKGROUNDACCESS, (LPARAM)pFrame, (LPARAM)bNeedAccess, (LPARAM)0); }
+__inline void* mvNeebBackgroundAccess(LPMV mV, CRunFrame* pFrame, BOOL bNeedAccess) \
+	{ return (void*)mV->mvCallFunction(NULL, EF_NEEDBACKGROUNDACCESS, (LPARAM)pFrame, (LPARAM)bNeedAccess, (LPARAM)0); }
 
 __inline BOOL mvIsHWAVersion(LPMV mV) \
 	{ return mV->mvCallFunction(NULL, EF_ISHWA, (LPARAM)0, (LPARAM)0, (LPARAM)0); }
@@ -1594,10 +1594,10 @@ __inline BOOL mvIsHWAVersion(LPMV mV) \
 __inline BOOL mvIsUnicodeVersion(LPMV mV) \
 	{ return mV->mvCallFunction(NULL, EF_ISUNICODE, (LPARAM)0, (LPARAM)0, (LPARAM)0); }
 
-__inline BOOL mvIsUnicodeApp(LPMV mV, LPVOID pApp) \
+__inline BOOL mvIsUnicodeApp(LPMV mV, void* pApp) \
 	{ return mV->mvCallFunction(NULL, EF_ISUNICODEAPP, (LPARAM)pApp, (LPARAM)0, (LPARAM)0); }
 
-__inline int mvGetAppCodePage(LPMV mV, LPVOID pApp) \
+__inline int mvGetAppCodePage(LPMV mV, void* pApp) \
 	{ return mV->mvCallFunction(NULL, EF_GETAPPCODEPAGE, (LPARAM)pApp, (LPARAM)0, (LPARAM)0); }
 
 __inline LPWSTR mvLoadTextFile(LPMV mV, LPCWSTR fname, UINT encoding, BOOL bBinaryFile) \
@@ -1639,7 +1639,7 @@ typedef	struct	tagKpxFunc {
 	HINSTANCE			kpxHInst;
 	LPTSTR				kpxName;
 	LPTSTR				kpxSubType;
-	LPVOID				kpxUserData;
+	void*				kpxUserData;
 	DWORD ( WINAPI		* kpxGetInfos) (int);
 	int  ( WINAPI		* kpxLoadObject) (mv *, OI*, LPBYTE, int);
 	void ( WINAPI		* kpxUnloadObject) (mv *, LPBYTE, int);
@@ -1653,7 +1653,7 @@ typedef	struct	tagKpxFunc {
 	void ( WINAPI		* kpxEndApp) (mv *, CRunApp*);
 	void ( WINAPI		* kpxStartFrame) (mv *, CRunApp*, int);
 	void ( WINAPI		* kpxEndFrame) (mv *, CRunApp*, int);
-	HGLOBAL ( WINAPI	* kpxUpdateEditStructure) (mv *, LPVOID);
+	HGLOBAL ( WINAPI	* kpxUpdateEditStructure) (mv *, void*);
 #if defined(VITALIZE)
 	BOOL				bValidated;
 #endif
