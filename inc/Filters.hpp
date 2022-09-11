@@ -73,8 +73,6 @@ public:
 class CImageFilter;
 class CImageFilterMgr;
 class CFilterImpl;
-class CInputFile;
-class COutputFile;
 class CFilterImpl;
 
 // Error codes

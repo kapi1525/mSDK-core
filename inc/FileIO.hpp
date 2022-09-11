@@ -26,18 +26,16 @@ enum class FileError {
     Max = 0x40010000
 };
 
-namespace FileMode {
-    enum {
-        Read = 0x00000000,
-        Write = 0x00000001,
-        ReadWrite = 0x00000002,
-        ShareCompat = 0x00000000,
-        ShareExclusive = 0x00000010,
-        ShareDenyWrite = 0x00000020,
-        ShareDenyRead = 0x00000030,
-        ShareDenyNone = 0x00000040,
-    };
-}
+enum class FileMode {
+    Read = 0x00000000,
+    Write = 0x00000001,
+    ReadWrite = 0x00000002,
+    ShareCompat = 0x00000000,
+    ShareExclusive = 0x00000010,
+    ShareDenyWrite = 0x00000020,
+    ShareDenyRead = 0x00000030,
+    ShareDenyNone = 0x00000040,
+};
 
 
 // File handle looks nicer than plain winapi stuff.
