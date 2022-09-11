@@ -160,8 +160,8 @@ public:
     int Create(FileHandle hf, unsigned long dwOffset, unsigned long dwSize);
     int Create(const char* filename);
     int Create(const char* filename, unsigned long dwOffset, unsigned long dwSize);
-    int Create(const wchat_t* filename);
-    int Create(const wchat_t* filename, unsigned long dwOffset, unsigned long dwSize);
+    int Create(const wchar_t* filename);
+    int Create(const wchar_t* filename, unsigned long dwOffset, unsigned long dwSize);
 
     virtual int Read(uint8_t* dest, unsigned long lsize);
     virtual int Read(uint8_t* dest, unsigned long lsize, unsigned long* pRead);
@@ -303,7 +303,7 @@ public:
 
     int Create(FileHandle hf, unsigned int nBufferSize = 4096);
     int Create(const char* fname, unsigned int nBufferSize = 4096);
-    int Create(const wchat_t* fname, unsigned int nBufferSize = 4096);
+    int Create(const wchar_t* fname, unsigned int nBufferSize = 4096);
 
     virtual int Write(uint8_t* pb, unsigned int sz);
     virtual int Flush();
