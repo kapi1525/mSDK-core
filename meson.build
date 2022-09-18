@@ -11,39 +11,115 @@ project(
 
 
 
+common_defines = [
+  'HWABETA',
+]
 
-if meson.get_compiler('cpp').get_id() != 'msvc'
-  warning('Compilers other than MSVC are currently unsupported, Fusion may not like that you\'re not using MSVC.')
+edittime_defines = [
+  'EDITTIME',
+]
+
+runtime_defines = [
+  'RUNTIME',
+]
+
+unicode_defines = [
+  'UNICODE',
+  '_UNICODE',
+]
+
+
+
+# Compiler arguments specific to MSVC
+common_msvc_args = [
+  '/wd4100',                # Supress 0 size array warning
+  '/wd4200',                # Supress unused function parameter warning
+  '/wd4201',                # Supress nameless enum and struct warnings
+  '/Zc:wchar_t-',           # Dont treat wchar_t as builtin type
+]
+
+
+# Compiler arguments specific to clang-cl
+common_clang_cl_args = [
+  '-fms-compatibility',     # Enable microsoft comparibility
+  '-fms-extensions',        # Enable microsoft language extensions
+]
+# Things currently breaking clang support:
+# https://github.com/llvm/llvm-project/issues/30933
+
+
+
+common = []
+edittime = []
+runtime = []
+unicode = []
+
+define_flag = []
+
+
+compiler = meson.get_compiler('cpp')
+
+if compiler.get_id() == 'msvc'
+  common += common_msvc_args
+  define_flag = '/D'
+elif compiler.get_id() == 'clang-cl'
+  common += common_clang_cl_args
+  define_flag = '-D'
+  warning('Clang-cl support is unfinished, expect errors.')
+else
+  warning('Unsuported compiler "' + compiler.get_id() + '", expect errors.')
 endif
 
-if build_machine.cpu() != 'x86'
-  warning('Fusion requires extension to be x86 (32bit) DLL, current compiler is for ' + build_machine.cpu() + ' cpus.')
+
+if host_machine.cpu() != 'x86'
+  warning('Fusion requires extension to be x86 (32bit) DLL, current compiler is for ' + host_machine.cpu() + ' cpus, expect errors.')
 endif
 
 
+foreach define : common_defines
+  common += define_flag + define
+endforeach
 
-# Compiler arguments for each target
-common   = [
-  '-DHWABETA',      # All build are HWA
-  '-wd4100',        # Supress 0 size array warning
-  '-wd4200',        # Supress unused function parameter warning
-  '-wd4201',        # Supress nameless enum and struct warnings
-  '-Zc:wchar_t-'    # Dont treat wchar_t as builtin type ('typedef unsigned short wchar_t' will be used)
-]
+foreach define : edittime_defines
+  edittime += define_flag + define
+endforeach
+
+foreach define : runtime_defines
+  runtime += define_flag + define
+endforeach
+
+foreach define : unicode_defines
+  unicode += define_flag + define
+endforeach
 
 
-edittime = [
-  '-DEDITTIME'
-]
 
-runtime  = [
-  '-DRUNTIME'
-]
 
-unicode  = [
-  '-DUNICODE',
-  '-D_UNICODE'
-]
+
+# # Compiler arguments for each target
+# common   = [
+#   '-DHWABETA',      # All build are HWA
+#   '-wd4100',        # Supress 0 size array warning
+#   '-wd4200',        # Supress unused function parameter warning
+#   '-wd4201',        # Supress nameless enum and struct warnings
+#   '-Zc:wchar_t-',   # Dont treat wchar_t as builtin type ('typedef unsigned short wchar_t' will be used)
+#   '-fms-compatibility',
+#   '-fms-extensions',
+# ]
+
+
+# edittime = [
+#   '-DEDITTIME'
+# ]
+
+# runtime  = [
+#   '-DRUNTIME'
+# ]
+
+# unicode  = [
+#   '-DUNICODE',
+#   '-D_UNICODE'
+# ]
 
 
 mmfs2 = meson.get_compiler('cpp').find_library(
