@@ -41,6 +41,7 @@ common_msvc_args = [
 
 # Compiler arguments specific to clang-cl
 common_clang_cl_args = [
+  '-Wno-unused-parameter',  # Supress unused function parameter warning
   '-fms-compatibility',     # Enable microsoft comparibility
   '-fms-extensions',        # Enable microsoft language extensions
 ]
@@ -65,15 +66,16 @@ if compiler.get_id() == 'msvc'
 elif compiler.get_id() == 'clang-cl'
   common += common_clang_cl_args
   define_flag = '-D'
-  warning('Clang-cl support is unfinished, expect errors.')
+  warning('clang-cl support is unfinished, expect errors.')
 else
   warning('Unsuported compiler "' + compiler.get_id() + '", expect errors.')
 endif
 
 
-if host_machine.cpu() != 'x86'
+if host_machine.cpu_family() != 'x86'
   warning('Fusion requires extension to be x86 (32bit) DLL, current compiler is for ' + host_machine.cpu() + ' cpus, expect errors.')
 endif
+
 
 
 foreach define : common_defines
@@ -92,34 +94,6 @@ foreach define : unicode_defines
   unicode += define_flag + define
 endforeach
 
-
-
-
-
-# # Compiler arguments for each target
-# common   = [
-#   '-DHWABETA',      # All build are HWA
-#   '-wd4100',        # Supress 0 size array warning
-#   '-wd4200',        # Supress unused function parameter warning
-#   '-wd4201',        # Supress nameless enum and struct warnings
-#   '-Zc:wchar_t-',   # Dont treat wchar_t as builtin type ('typedef unsigned short wchar_t' will be used)
-#   '-fms-compatibility',
-#   '-fms-extensions',
-# ]
-
-
-# edittime = [
-#   '-DEDITTIME'
-# ]
-
-# runtime  = [
-#   '-DRUNTIME'
-# ]
-
-# unicode  = [
-#   '-DUNICODE',
-#   '-D_UNICODE'
-# ]
 
 
 mmfs2 = meson.get_compiler('cpp').find_library(
