@@ -22,7 +22,7 @@
 // Other includes
 #include "Cnpdll.h"
 #include "cncr.h"
-#include "EVTCCX.h"
+#include "Events.hpp"
 #include "Props.h"
 
 // Usefull defines
